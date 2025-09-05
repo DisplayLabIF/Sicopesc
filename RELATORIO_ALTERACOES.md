@@ -302,9 +302,3 @@ sudo docker-compose down && sudo docker-compose up -d
 ```bash
 sudo docker exec backend-siscol-container npx sequelize-cli db:migrate
 ```
-
----
-
-**Data:** 19/07/2025  
-**Desenvolvedor:** Assistente AI  
-**Projeto:** Sistema Sicopesc 
