@@ -7,6 +7,7 @@ import {
   ReportStatus,
   LoadingContainer,
   FilterWrapper,
+  TableWrapper,
 } from "./styles";
 import Pagination from "react-js-pagination";
 import { Link } from "react-router-dom";
@@ -242,49 +243,51 @@ function RelatorioAnuidade(props) {
               </span>
             </ReportStatus>
           </ReportStatusContainer>
+          <TableWrapper>
+            <div className="table-responsive mt-4">
+              <table className="table" style={{ marginTop: 20 }}>
+                <thead>
+                  <tr>
+                    <th>CPF</th>
+                    <th>Nome</th>
+                    <th>Valor Pago</th>
+                    <th>Data do pagamento</th>
+                    <th>Ações</th>
+                  </tr>
+                </thead>
 
-          <table className="table table-responsive" style={{ marginTop: 20 }}>
-            <thead>
-              <tr>
-                <th>CPF</th>
-                <th>Nome</th>
-                <th>Valor Pago</th>
-                <th>Data do pagamento</th>
-                <th>Ações</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {report?.recibos?.map((recibo) => (
-                <tr key={recibo.id}>
-                  <td>{recibo.cpf}</td>
-                  <td>{recibo.nome}</td>
-                  <td
-                    style={{
-                      color:
-                        recibo.tipo === "venda"
-                          ? "var(--success)"
-                          : "var(--danger)",
-                    }}
-                  >
-                    {recibo.tipo === "compra" && "-"}{" "}
-                    {formatter.format(recibo.valor)}
-                  </td>
-                  <td>{new Date(recibo.createdAt).toLocaleDateString()}</td>
-                  <td style={{ display: "flex" }}>
-                    <Link
-                      className="btn btn-primary"
-                      to={"/recibo/" + recibo.id}
-                      style={{ width: 120, height: 50 }}
-                    >
-                      <FaEye style={{ marginRight: 5 }} /> Ver Recibo
-                    </Link>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          
+                <tbody>
+                  {report?.recibos?.map((recibo) => (
+                    <tr key={recibo.id}>
+                      <td>{recibo.cpf}</td>
+                      <td>{recibo.nome}</td>
+                      <td
+                        style={{
+                          color:
+                            recibo.tipo === "venda"
+                              ? "var(--success)"
+                              : "var(--danger)",
+                        }}
+                      >
+                        {recibo.tipo === "compra" && "-"}{" "}
+                        {formatter.format(recibo.valor)}
+                      </td>
+                      <td>{new Date(recibo.createdAt).toLocaleDateString()}</td>
+                      <td style={{ display: "flex" }}>
+                        <Link
+                          className="btn btn-primary"
+                          to={"/recibo/" + recibo.id}
+                          style={{ width: 120, height: 50 }}
+                        >
+                          <FaEye style={{ marginRight: 5 }} /> Ver Recibo
+                        </Link>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </TableWrapper>
           <div
             style={{
               width: "100%",

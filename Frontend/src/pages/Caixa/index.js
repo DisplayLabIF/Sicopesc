@@ -85,66 +85,68 @@ function Caixa(props) {
 
       {recibos && recibos.length > 0 && (
         <>
-        <table className="table table-responsive mt-4">
-          <thead>
-            <tr>
-              <th>Tipo</th>
-              <th>Nome</th>
-              <th>Descrição</th>
-              <th>Valor</th>
-              <th>Ações</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {recibos.map((recibo) => (
-              <tr key={recibo.id}>
-                <td
-                  style={{
-                    fontWeight: "bold",
-                    textTransform: "uppercase",
-                  }}
-                >
-                  <span
-                    className={
-                      "tipo-fluxo border-radius " +
-                      (recibo.tipo.toUpperCase() === "VENDA"
-                        ? "bg-success"
-                        : "bg-warning")
-                    }
-                  >
-                    {recibo.tipo}
-                  </span>
-                </td>
-                <td>{recibo.nome}</td>
-                <td>{recibo.descricao}</td>
-                <td>
-                  {(recibo.tipo.toUpperCase() === "COMPRA" ? "-" : "") +
-                    recibo.valor}
-                </td>
-                <td style={{ display: "flex" }}>
-                  <Link
-                    className="btn btn-primary"
-                    to={"/recibo/" + recibo.id}
-                    style={{ width: 60, height: 50, marginLeft: 10 }}
-                  >
-                    <FaEye />
-                  </Link>
-                  <button
-                    className="btn btn-danger"
-                    onClick={() => {
-                      setReciboId(recibo.id);
-                      setShowModalExcluir(true);
-                    }}
-                    style={{ width: 60, height: 50, marginLeft: 10 }}
-                  >
-                    <FaTrash />
-                  </button>
-                </td>
+        <div className="table-responsive mt-4">
+          <table className="table">
+            <thead>
+              <tr>
+                <th>Tipo</th>
+                <th>Nome</th>
+                <th>Descrição</th>
+                <th>Valor</th>
+                <th>Ações</th>
               </tr>
-            ))}
-          </tbody>
+            </thead>
+
+            <tbody>
+              {recibos.map((recibo) => (
+                <tr key={recibo.id}>
+                  <td
+                    style={{
+                      fontWeight: "bold",
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    <span
+                      className={
+                        "tipo-fluxo border-radius " +
+                        (recibo.tipo.toUpperCase() === "VENDA"
+                          ? "bg-success"
+                          : "bg-warning")
+                      }
+                    >
+                      {recibo.tipo}
+                    </span>
+                  </td>
+                  <td>{recibo.nome}</td>
+                  <td>{recibo.descricao}</td>
+                  <td>
+                    {(recibo.tipo.toUpperCase() === "COMPRA" ? "-" : "") +
+                      recibo.valor}
+                  </td>
+                  <td style={{ display: "flex" }}>
+                    <Link
+                      className="btn btn-primary"
+                      to={"/recibo/" + recibo.id}
+                      style={{ width: 60, height: 50, marginLeft: 10 }}
+                    >
+                      <FaEye />
+                    </Link>
+                    <button
+                      className="btn btn-danger"
+                      onClick={() => {
+                        setReciboId(recibo.id);
+                        setShowModalExcluir(true);
+                      }}
+                      style={{ width: 60, height: 50, marginLeft: 10 }}
+                    >
+                      <FaTrash />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
           </table>
+        </div>
           
           {loading ? <HashLoader size={30} /> : ""}
           

@@ -1,96 +1,54 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  width: 781px;
-  margin: 0 auto;
-  background: #ffffff;
-<<<<<<< HEAD
+  width: 21cm;              /* largura do A4 */
+  min-height: 29.7cm;       /* altura mínima do A4 */
+  margin: 0 auto 1cm auto;  /* centraliza e dá espaço entre páginas */
+  padding: 1cm;             /* margens internas */
+  background: white;
+  border: 1px solid #ccc;   /* borda leve */
+  box-shadow: 0 0 5px rgba(0,0,0,0.1); /* sombra leve */
+  box-sizing: border-box;
   color: black;
-  padding: 20px;
-  border: 1px solid #ccc;
-  font-family: times-new-roman;
 
-  div.logo {
-    disflay: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-
-  div h3 {
-    font-size: 10px;
-  }
-
-  div h4 {
-    font-size: 12px;
-    font-weight: bold;
-  }
-=======
-  padding: 20px;
-  border: 1px solid #ccc;
-
-  .logo {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 20px;
-    text-align: center;
-  }
-
-  .logo img.brasao {
-    width: 100px;
-    margin-bottom: 10px;
-  }
-
-  .logo h3 {
-    margin: 2px 0;
-    font-size: 16px;
-    font-weight: bold;
-  }
-
-  .logo h4 {
-    margin: 8px 0 4px;
-    font-size: 15px;
-    font-weight: bold;
-    text-transform: uppercase;
-  }
-
-  .logo p {
-    margin: 2px 0;
-    font-size: 13px;
-  }
-
-  .logo p.sub {
-    font-size: 12px;
-    font-style: italic;
-    color: #333;
-    margin-top: 6px;
-  }
-
->>>>>>> feature/alteracoes
+  /* ======== TABELA ============= */
   table {
     width: 100%;
     border-collapse: collapse;
     font-family: Arial, sans-serif;
     font-size: 14px;
+    table-layout: auto;
+    border: none;
   }
 
-  th, td {
+  th,
+  td {
+    align: center;
     border: 1px solid #444;
     padding: 6px 8px;
-    vertical-align: top;
     text-align: left;
+    height: 25px;
+  }
+
+  th {
+    text-align: center;
+  }
+
+  .bloco {
+    width: 100%;
+  }
+
+  thead td {
+    border: none;
+    text-align: center;
   }
 
   th.section {
-    background: #ddd;
+    text-align: left;
+    border: none;
     font-weight: 700;
-    text-align: center;
     font-size: 15px;
-  }
-
-  td.wide {
-    width: 60%;
+    padding-top: 24px;
   }
 
   .notes {
@@ -99,12 +57,182 @@ export const Container = styled.div`
     padding: 8px;
     background: #f9f9f9;
   }
-<<<<<<< HEAD
 
-  input[type="checkbox"],
-  input[type="radio"] {
-    margin-right: 4px;
+  /* Logo */
+  .logo-print {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+
+    .brasao {
+      width: 100px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      margin: 0;
+      font-size: 16px;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
   }
-=======
->>>>>>> feature/alteracoes
-`;
+
+  /* Cabeçalho */
+  .header td {
+    padding: 0;
+    border: none;
+    text-align: center;
+  }
+
+  .header h4 {
+    margin: 8px 0 4px;
+    font-size: 15px;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  .header p {
+    margin: 2px 0;
+    font-size: 15px;
+    color: red;
+    font-weight: bold;
+  }
+
+  /* Inputs para impressão */
+  input[type="radio"],
+  input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 12px;
+    height: 12px;
+    border: 1px solid #000;
+    vertical-align: middle;
+    margin-right: 5px;
+    background-color: transparent;
+  }
+
+  input[type="radio"]:checked::after,
+  input[type="checkbox"]:checked::after {
+    content: "X";
+    font-weight: bold;
+    display: block;
+    text-align: center;
+    line-height: 12px;
+    font-size: 10pt;
+    color: #000;
+  }
+
+  /* Força quebra de página na impressão */
+  &.page-break {
+    page-break-before: always;
+  }
+
+  /* ======= Estilização da legenda ======= */
+  .legenda{
+    font-size:11px;
+    font-weight: bold;
+    border: none;
+  }
+  /* ======= Estilização da assinatura ======= */
+  .assinatura td {
+    position: relative;
+    padding-top: 120px;
+    border: none;
+    text-align: center;
+  }
+
+  /* =========== Estilização dos check-box ======== */
+  tr .check-box {
+    border: none;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+
+  tr .check-box label {
+    display: flex;
+    align-items: center;
+  }
+
+  /* =========== Estilização da assinatura digital ======== */
+  .digital td {
+    position: relative;
+    height: 120px;
+    border: none;
+    text-align: center;
+    vertical-align: middle;
+  }
+
+  .digital td div {
+    display: block;
+    margin: 0 auto;
+    position: relative;
+    top: 10px;
+    height: 80px;
+    width: 80px;
+    border: 1px solid #000;
+  }
+
+  .digital td p {
+    margin: 5px 0 0 0;
+    position: relative;
+    top: 10px;
+    font-weight: bold;
+  }
+
+
+  /* =========== ESTILOS DE IMPRESSÃO ======== */
+  @media print {
+    width: 100% !important;
+    min-height: 100vh !important;
+    margin: 0 !important;
+    /* espaço superior extra para não colidir com o cabeçalho do navegador */
+    padding: 1.8cm 1cm 1cm 1cm !important;
+    border: none !important;
+    box-shadow: none !important;
+    background: white !important;
+    
+    /* Remove todos os elementos de interface do navegador */
+    * {
+      -webkit-print-color-adjust: exact !important;
+      color-adjust: exact !important;
+    }
+
+    table {
+      font-size: 10pt;
+    }
+
+    /* Impede que blocos sejam cortados entre páginas */
+    tbody.bloco {
+      page-break-inside: avoid !important;
+      break-inside: avoid !important;
+    }
+
+    th,
+    td {
+      padding: 0.1cm 0.2cm;
+      height: 0.8cm;
+      border-color: #000;
+    }
+
+    tr,
+    th.section {
+      page-break-inside: avoid;
+      page-break-after: auto;
+    }
+
+    .logo-print {
+      .brasao {
+        width: 76px;
+      }
+      
+      p {
+        font-size: 13pt;
+      }
+    }
+    
+    
+  }
+`

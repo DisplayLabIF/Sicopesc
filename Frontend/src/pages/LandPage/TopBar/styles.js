@@ -46,4 +46,11 @@ export const LogoSiscol = styled.img`
   width: 153px;
   height: 80px;
   margin-top: 20px;
+
+  @media (max-width: 768px) {
+    width: 70px;
+    height: 40px;
+    margin: 16px auto 8px auto;
+    display: block;
+  }
 `;

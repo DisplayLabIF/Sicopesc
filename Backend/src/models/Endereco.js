@@ -4,7 +4,7 @@ class Endereco extends Model{
     static init(connection){
         super.init({
             logradouro: DataTypes.STRING,
-            numero: DataTypes.INTEGER,
+            numero: DataTypes.STRING,
             bairro: DataTypes.STRING,
             cidade: DataTypes.STRING,
             estado: DataTypes.STRING,

@@ -3,18 +3,37 @@ import { ScaleMacAnimation } from "../../styles/animations";
 
 export const Container = styled.div`
   display: flex;
-  position: absolute;
+  position: relative;
   width: 100%;
-  height: 100%;
+  min-height: 100vh;
   justify-content: center;
   align-items: center;
   background: ${(props) => props.theme.colors.background};
   flex-wrap: wrap;
   #logo-login {
-    max-width: 253;
-    max-height: 133px;
-    position: absolute;
-    margin-top: -150px;
+    width: 220px;
+    max-width: 60vw;
+    height: auto;
+    position: static;
+    display: block;
+    margin: 0 auto 24px auto;
+  }
+  padding: 24px 16px;
+  box-sizing: border-box;
+
+  @media (max-width: 768px) {
+    #logo-login {
+      width: 180px;
+      margin-bottom: 16px;
+    }
+    padding: 20px 12px;
+  }
+  @media (max-width: 480px) {
+    #logo-login {
+      width: 150px;
+      margin-bottom: 12px;
+    }
+    padding: 16px 10px;
   }
 `;
 
@@ -33,11 +52,14 @@ export const TextLogin = styled.h1`
 export const LoginBox = styled.div`
   animation: ${ScaleMacAnimation} 500ms;
   animation-fill-mode: backwards;
+  width: 100%;
+  max-width: 420px;
 `;
 
 export const FooterBox = styled.div`
   display: flex;
-  width: 380px;
+  width: 100%;
+  max-width: 380px;
   height: 70px;
   flex-direction: column;
   align-items: center;
@@ -55,28 +77,42 @@ export const FooterBox = styled.div`
     font-size: 15px;
     text-align: center;
   }
+  @media (max-width: 480px) {
+    height: auto;
+    padding: 12px;
+    span { font-size: 14px; }
+  }
 `;
 export const Form = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 380px;
+  width: 100%;
+  max-width: 380px;
   height: 100%;
+  gap: 8px;
+  
+  .input-group, .mb-4 { width: 100%; }
+  .form-control { font-size: 16px; }
   .button-submit {
     display: flex;
     width: 100%;
     justify-content: flex-end;
     button {
-      width: 67px;
-      height: 53px;
-      font-size: 22px;
+      width: 100%;
+      height: 48px;
+      font-size: 20px;
       border-radius: 10px;
-      margin-right: 40px;
+      margin-right: 0;
       display: flex;
       align-items: center;
       justify-content: center;
       margin-bottom: 10px;
     }
+  }
+  @media (max-width: 480px) {
+    .form-control { font-size: 15px; }
+    .button-submit button { height: 46px; font-size: 18px; }
   }
 `;

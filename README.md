@@ -17,7 +17,7 @@ cd Sicopesc
 ```bash
 cd Sicopesc/Backend/ 
 
-curl -o wait-for-it.sh https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh
+    curl -o wait-for-it.sh https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh
 chmod +x wait-for-it.sh
 ```
 3. **Configuere as variaveis de ambiente do Backend e Frontend:**

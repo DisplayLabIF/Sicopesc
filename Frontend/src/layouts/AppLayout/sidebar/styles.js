@@ -42,6 +42,12 @@ export const Container = styled.div`
     animation-fill-mode: backwards;
     animation-delay: ${props => props.hideAnimation ? '0ms' : '150ms'};
     z-index: 2;
+    position: relative;
+
+    @media (max-width: 768px) {
+      width: 100%;
+      max-width: 100%;
+    }
     ul {
       width: 100%;
       display: flex;
@@ -88,5 +94,36 @@ export const Item = styled.div`
   &:hover {
     background: rgba(0, 0, 0, 0.2);
     color: #fff;
+  }
+`;
+
+export const CloseButton = styled.button`
+  display: none;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: none;
+  background-color: rgba(0, 0, 0, 0.2);
+  color: ${props => props.theme.colors.text};
+  font-size: 24px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  @media (max-width: 768px) {
+    display: flex;
   }
 `;

@@ -23,6 +23,8 @@ import { Modal } from "react-bootstrap";
 import { PulseLoader } from "react-spinners";
 
 export default function Pescador(props) {
+  const { title = ""} = props;
+  console.log(title);
   const [page, setPage] = useState(1);
   const [pescadores, setPescadores] = useState([]);
   const [idPescador, setIdPescador] = useState(0);
@@ -111,6 +113,7 @@ export default function Pescador(props) {
 
   return (
     <Container className="container">
+      <h1 className="title-center">{title}</h1>
       <form onSubmit={getPescadoresByNome}>
         <div className="mb-4 input-group">
           <label className="input-group-text" id="basic-addon1">
@@ -146,52 +149,54 @@ export default function Pescador(props) {
             <span>{pagination.itemCount} Resultados</span>
           </PaginationInfo>
         </div>*/}
-      <table className="table table-responsive">
-        <thead>
-          <tr>
-            <th>RGP</th>
-            <th>Nome</th>
-            <th>Nascimento</th>
-            <th>Ações</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {pescadores.map((pescador) => (
-            <tr key={pescador.id}>
-              <td>{pescador.rgp}</td>
-              <td>{pescador.nome}</td>
-              <td>{dateFormat(pescador.nascimento)}</td>
-              <td style={{ display: "flex" }}>
-                <Link
-                  className="btn btn-primary"
-                  to={"/ver-pescador/" + pescador.id}
-                  style={{ width: 60, height: 50, marginLeft: 10 }}
-                >
-                  <FaEye />
-                </Link>
-                <Link
-                  className="btn btn-warning"
-                  to={`/editar-pescador/${pescador.id}`}
-                  style={{ width: 60, height: 50, marginLeft: 10 }}
-                >
-                  <FaEdit />
-                </Link>
-                <button
-                  className="btn btn-danger"
-                  onClick={() => {
-                    setIdPescador(pescador.id);
-                    setShowModalExcluir(true);
-                  }}
-                  style={{ width: 60, height: 50, marginLeft: 10 }}
-                >
-                  <FaTrash />
-                </button>
-              </td>
+      <div className="table-responsive mt-4">
+        <table className="table">
+          <thead>
+            <tr>
+              <th>RGP</th>
+              <th>Nome</th>
+              <th>Nascimento</th>
+              <th>Ações</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+
+          <tbody>
+            {pescadores.map((pescador) => (
+              <tr key={pescador.id}>
+                <td>{pescador.rgp}</td>
+                <td>{pescador.nome}</td>
+                <td>{dateFormat(pescador.nascimento)}</td>
+                <td style={{ display: "flex" }}>
+                  <Link
+                    className="btn btn-primary"
+                    to={"/ver-pescador/" + pescador.id}
+                    style={{ width: 60, height: 50, marginLeft: 10 }}
+                  >
+                    <FaEye />
+                  </Link>
+                  <Link
+                    className="btn btn-warning"
+                    to={`/editar-pescador/${pescador.id}`}
+                    style={{ width: 60, height: 50, marginLeft: 10 }}
+                  >
+                    <FaEdit />
+                  </Link>
+                  <button
+                    className="btn btn-danger"
+                    onClick={() => {
+                      setIdPescador(pescador.id);
+                      setShowModalExcluir(true);
+                    }}
+                    style={{ width: 60, height: 50, marginLeft: 10 }}
+                  >
+                    <FaTrash />
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
       
         {loading ? <HashLoader size={30} /> : ""}
       

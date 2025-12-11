@@ -24,6 +24,15 @@ export const Container = styled.div`
   .table-rounded {
     border-radius: 5px;
   }
+  @media (max-width: 768px) {
+    .title-center {
+      text-align: center;
+      position: static;
+      transform: none;
+      font-size: 24px;
+      margin-bottom: 40px;
+    }
+  }
 `;
 export const FormSearch = styled.form`
   display: flex;

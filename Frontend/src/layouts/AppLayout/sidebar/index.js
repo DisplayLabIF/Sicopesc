@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Container, Item } from "./styles";
-import { FaHome, FaChartBar, FaUser } from "react-icons/fa";
+import { Container, Item, CloseButton } from "./styles";
+import { FaHome, FaChartBar, FaUser, FaTimes } from "react-icons/fa";
 import { IoDocumentTextOutline } from "react-icons/io5";
 import { Link, useLocation } from "react-router-dom";
 import { useAppLayout } from "../../../contexts/AppLayoutContext";
@@ -15,7 +15,7 @@ export default function Sidebar() {
 
   function hideSidebar() {
     setHideAnimation(true);
-    //appContext.toggleShowSidebar();
+    appContext.toggleShowSidebar();
   }
 
   const registerAnimationEndEvent = useCallback(() => {
@@ -47,7 +47,10 @@ export default function Sidebar() {
       show={appContext.showSidebar}
       onClick={hideSidebar}
     >
-      <div className="sidebar">
+      <div className="sidebar" onClick={(e) => e.stopPropagation}>
+        <CloseButton onClick={hideSidebar} aria-label="Fechar menu">
+          <FaTimes />
+        </CloseButton>
         <div className="brand primary">
           <span className="title white-text">
             <img
@@ -60,7 +63,7 @@ export default function Sidebar() {
 
         <ul>
           <li>
-            <Item active={location.pathname === "/"}>
+            <Item active={location.pathname === "/inicio"}>
               <Link to="/inicio">
                 <FaHome size={14} style={{ marginRight: 8 }} />
                 <span> Início</span>
@@ -71,20 +74,20 @@ export default function Sidebar() {
           {userRole === "ADMIN" && (
             <li>
               <Item>
-                <a href="/usuarios">
+                <Link to="/usuarios">
                   <FaUser size={14} style={{ marginRight: 8 }} />
                   <span>Gerenciar usuários</span>
-                </a>
+                </Link>
               </Item>
             </li>
           )}
 
           <li>
             <Item>
-              <a href="/relatorios">
+              <Link to="/relatorios">
                 <FaChartBar size={14} style={{ marginRight: 8 }} />
                 <span>Relatórios</span>
-              </a>
+              </Link>
             </Item>
           </li>
           <li>

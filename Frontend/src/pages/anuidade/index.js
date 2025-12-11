@@ -29,6 +29,8 @@ import Pagination from "react-js-pagination";
 //import { PaginationInfo } from "../pescador/styles";
 
 function Anuidade(props) {
+  const {title = ""} = props;
+
   const [guias, setGuias] = useState([]);
   const [nomePescador, setNomePescador] = useState("");
   const [, setLoading] = useState(false);
@@ -224,6 +226,8 @@ function Anuidade(props) {
 
   return (
     <Container className="container">
+      <h1 className="title-center">{title}</h1>
+
       <FormSearch onSubmit={getGuiasByNome}>
         <div className="mb-4 input-group">
           <label
@@ -382,54 +386,56 @@ function Anuidade(props) {
       </div>
       {guias && guias.length > 0 && (
         <>
-        <table className="table table-responsive mt-4">
-          <thead>
-            <tr>
-              <th>RGP/CPF</th>
-              <th>Nome</th>
-              <th>Data de emissão</th>
-              <th>Ano de referência</th>
-              <th>Valor</th>
-              <th>Ações</th>
-            </tr>
-          </thead>
+          <div className="table-responsive mt-4">
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>RGP/CPF</th>
+                  <th>Nome</th>
+                  <th>Data de emissão</th>
+                  <th>Ano de referência</th>
+                  <th>Valor</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
 
-          <tbody>
-            {guias.map((guia) => (
-              <tr key={guia.id}>
-                <td>{guia.pescador.rgp}</td>
-                <td>{guia.pescador.nome}</td>
-                <td>{dateFormat(guia.data_emissao)}</td>
-                <td>{guia.ano}</td>
-                <td>{guia.valor}</td>
-                <td className="table-btn-actions" style={{ minWidth: 300 }}>
-                  <Link className="btn btn-primary" to={"/ver-guia/" + guia.id}>
-                    <FaEye />
-                  </Link>
-                  <button
-                    className="btn btn-danger modal-trigger"
-                    href="#modalExcluir"
-                    onClick={() => {
-                      setShowModalExcluir(true);
-                      setIdGuia(guia.id);
-                    }}
-                    data-bs-toggle="modal"
-                    data-bs-target="#modal-excluir-guia"
-                  >
-                    <FaTrash />
-                  </button>
-                  <button
-                    className="btn btn-warning"
-                    onClick={() => handlePayNextYear(guia.pescador.id)}
-                    title="Gera a próxima guia de pagamento do pescador."
-                  >
-                    <FaMoneyBill style={{ marginRight: 5 }} /> Pagar próximo ano
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-          </table>
+              <tbody>
+                {guias.map((guia) => (
+                  <tr key={guia.id}>
+                    <td>{guia.pescador.rgp}</td>
+                    <td>{guia.pescador.nome}</td>
+                    <td>{dateFormat(guia.data_emissao)}</td>
+                    <td>{guia.ano}</td>
+                    <td>{guia.valor}</td>
+                    <td className="table-btn-actions" style={{ minWidth: 300 }}>
+                      <Link className="btn btn-primary" to={"/ver-guia/" + guia.id}>
+                        <FaEye />
+                      </Link>
+                      <button
+                        className="btn btn-danger modal-trigger"
+                        href="#modalExcluir"
+                        onClick={() => {
+                          setShowModalExcluir(true);
+                          setIdGuia(guia.id);
+                        }}
+                        data-bs-toggle="modal"
+                        data-bs-target="#modal-excluir-guia"
+                      >
+                        <FaTrash />
+                      </button>
+                      <button
+                        className="btn btn-warning"
+                        onClick={() => handlePayNextYear(guia.pescador.id)}
+                        title="Gera a próxima guia de pagamento do pescador."
+                      >
+                        <FaMoneyBill style={{ marginRight: 5 }} /> Pagar próximo ano
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
           
           <div
             style={{

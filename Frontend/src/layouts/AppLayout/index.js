@@ -14,7 +14,7 @@ function Template({ children, title, history }) {
     <AppLayoutProvider>
       <Sidebar />
       <Container>
-        <TopBar title={title} history={history} />
+        <TopBar title={title} />
         {children}
         <img
           id="logo-login"

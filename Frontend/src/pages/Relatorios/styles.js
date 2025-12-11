@@ -2,9 +2,23 @@ import styled from "styled-components";
 import { ScaleMacAnimation } from "../../styles/animations";
 
 export const Container = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  
+  .title-center {
+    left: 50%;
+    transform: translateX(-50%);
+    top: 34px;
+    position: absolute;
+    font-size: 2.2em;
+  }
+  @media (max-width: 768px) {
+    .title-center {
+      text-align: center;
+      position: static;
+      transform: none;
+      font-size: 24px;
+      margin-bottom: 40px;
+    }
+  }
 `;
 
 export const ReportButton = styled.a`
@@ -24,4 +38,29 @@ export const ReportButton = styled.a`
     max-height: 100%;
     margin-right: 5px;
   }
+
+  @media (max-width: 768px) {
+    width: 100% !important;
+    max-width: 100%;
+    flex-direction: row;
+    justify-content: flex-start;
+    font-size: 1em;
+    height: 120px;;
+
+    img {
+      max-width: 90px;
+      margin-right: 10px;
+    }
+  }
 `;
+
+export const BoxContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 12px;
+  }
+`

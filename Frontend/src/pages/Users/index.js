@@ -8,7 +8,8 @@ import api from "../../services/api";
 import { Link } from "react-router-dom";
 import { FaEdit, FaTrash, FaUserPlus } from "react-icons/fa";
 
-function Users() {
+function Users(props) {
+  const { title = "" } = props;
   const [users, setUsers] = useState([]);
   const [showModalExcluir, setShowModalExcluir] = useState(false);
   const [userId, setUserId] = useState();
@@ -46,6 +47,7 @@ function Users() {
 
   return (
     <Container className="container">
+      <h1 className="title-center">{title}</h1>
       <Link
         className="btn btn-primary mb-2"
         style={{ width: 176 }}
@@ -53,49 +55,56 @@ function Users() {
       >
         <FaUserPlus style={{ marginRight: 5 }} /> Novo usuário
       </Link>
-      <table className="table table-responsive">
-        <thead>
-          <tr>
-            <th>Nome</th>
-            <th>E-mail</th>
-            <th>Tipo</th>
-            <th>Ações</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {users.map((user) => (
-            <tr key={user.id}>
-              <td>{user.nome}</td>
-              <td>{user.email}</td>
-              <td>{user.role}</td>
-              <td style={{ display: "flex" }}>
-                <Link
-                  className="btn btn-warning"
-                  to={`/editar-usuario/${user.id}`}
-                  style={{ width: 60, height: 50, marginLeft: 10 }}
-                >
-                  <FaEdit />
-                </Link>
-                {user.role !== "ADMIN" && (
-                  <button
-                    className="btn btn-danger"
-                    onClick={() => {
-                      setUserId(user.id);
-                      setShowModalExcluir(true);
-                    }}
-                    style={{ width: 60, height: 50, marginLeft: 10 }}
-                  >
-                    <FaTrash />
-                  </button>
-                )}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-        {loading ? <HashLoader size={30} /> : ""}
-      </table>
-
+      {loading ? (
+        <div style={{ display: 'flex', justifyContent: 'center', margin: '20px 0' }}>
+          <HashLoader size={30} color="#007bff" />
+        </div>
+      ) : (
+        <div className="table-responsive mt-4">
+          <table className="table">
+              <thead>
+              <tr>
+                <th>Nome</th>
+                <th>E-mail</th>
+                <th>Tipo</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              {users.map((user) => (
+                <tr key={user.id}>
+                  <td>{user.nome}</td>
+                  <td>{user.email}</td>
+                  <td>{user.role}</td>
+                  <td style={{ display: "flex" }}>
+                    <Link
+                      className="btn btn-warning"
+                      to={`/editar-usuario/${user.id}`}
+                      style={{ width: 60, height: 50, marginLeft: 10 }}
+                    >
+                      <FaEdit />
+                    </Link>
+                    {user.role !== "ADMIN" && (
+                      <button
+                        className="btn btn-danger"
+                        onClick={() => {
+                          setUserId(user.id);
+                          setShowModalExcluir(true);
+                        }}
+                        style={{ width: 60, height: 50, marginLeft: 10 }}
+                      >
+                        <FaTrash />
+                      </button>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+            {loading ? <HashLoader size={30} /> : ""}
+          </table>
+        </div>
+      )}
+      
       <Modal show={showModalExcluir} size="lg" centered>
         <Modal.Header>
           <Modal.Title>Tem certeza que deseja excluir?</Modal.Title>

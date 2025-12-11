@@ -13,7 +13,7 @@ module.exports = {
             type: Sequelize.STRING,
           },
           numero: {
-            type: Sequelize.INTEGER,
+            type: Sequelize.STRING,
           },
           bairro: {
             type: Sequelize.STRING,

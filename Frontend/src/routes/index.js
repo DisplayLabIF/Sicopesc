@@ -33,7 +33,11 @@ import ShowSeguro from "../pages/Documentos/Seguro/ShowSeguro";
 
 const Routes = () => (
   <Switch>
-    <PrivateRoute exact path="/inicio" component={Main} />
+    <PrivateRoute 
+      exact 
+      path="/inicio" 
+      component={Main} 
+    />
     <DividedRoute
       exact
       path="/register"
@@ -53,15 +57,26 @@ const Routes = () => (
       component={RegisterEntidade}
       description="Informe os dados da entidade/colônia ao qual você representa"
     />
-    <Route exact component={RegisterFinished} path="/cadastro-finalizado" />
-    <Route exact path="/login" component={Login} />
+    <Route 
+      exact 
+      component={RegisterFinished} 
+      path="/cadastro-finalizado" 
+    />
+    <Route 
+      exact 
+      path="/login" 
+      component={Login} 
+    />
     <PrivateRoute
       exact
       path="/pescador"
       title="Pescadores"
       component={Pescador}
     />
-    <PrivateRoute path="/pescador/:page" component={Pescador} />
+    <PrivateRoute 
+      path="/pescador/:page" 
+      component={Pescador} 
+    />
     <PrivateRoute
       exact
       path="/editar-pescador/:id"
@@ -129,7 +144,12 @@ const Routes = () => (
       tipo_caixa="compra"
     />
 
-    <PrivateRoute exact path="/usuarios" title="Usuários" component={Users} />
+    <PrivateRoute 
+      exact 
+      path="/usuarios" 
+      title="Usuários" 
+      component={Users} 
+    />
     <PrivateRoute
       exact
       path="/novo-usuario"

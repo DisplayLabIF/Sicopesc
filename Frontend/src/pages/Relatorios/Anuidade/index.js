@@ -7,6 +7,7 @@ import {
   ReportStatus,
   LoadingContainer,
   FilterWrapper,
+  TableWrapper,
 } from "./styles";
 import Pagination from "react-js-pagination";
 import { Link } from "react-router-dom";
@@ -136,7 +137,7 @@ function RelatorioAnuidade(props) {
       ...provided,
       marginBottom: 10,
       width: 200,
-      marginRight: 10,
+      marginRight: 0,
     }),
     control: (provided, state) => ({
       ...provided,
@@ -234,39 +235,41 @@ function RelatorioAnuidade(props) {
               </span>
             </ReportStatus>
           </ReportStatusContainer>
+          <TableWrapper>
+            <div className="table-responsive mt-4">
+              <table className="table" style={{ marginTop: 20 }}>
+                <thead>
+                  <tr>
+                    <th>RGP</th>
+                    <th>Nome</th>
+                    <th>Valor Pago</th>
+                    <th>Data do pagamento</th>
+                    <th>Ações</th>
+                  </tr>
+                </thead>
 
-          <table className="table table-responsive" style={{ marginTop: 20 }}>
-            <thead>
-              <tr>
-                <th>RGP</th>
-                <th>Nome</th>
-                <th>Valor Pago</th>
-                <th>Data do pagamento</th>
-                <th>Ações</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {report?.guias?.map((guia) => (
-                <tr key={guia.id}>
-                  <td>{guia.pescador.rgp}</td>
-                  <td>{guia.pescador.nome}</td>
-                  <td>{formatter.format(guia.valor)}</td>
-                  <td>{new Date(guia.data_emissao).toLocaleDateString()}</td>
-                  <td style={{ display: "flex" }}>
-                    <Link
-                      className="btn btn-primary"
-                      to={"/ver-guia/" + guia.pescador.id}
-                      style={{ width: 120, height: 50 }}
-                    >
-                      <FaEye style={{ marginRight: 5 }} /> Ver Guia
-                    </Link>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          
+                <tbody>
+                  {report?.guias?.map((guia) => (
+                    <tr key={guia.id}>
+                      <td>{guia.pescador.rgp}</td>
+                      <td>{guia.pescador.nome}</td>
+                      <td>{formatter.format(guia.valor)}</td>
+                      <td>{new Date(guia.data_emissao).toLocaleDateString()}</td>
+                      <td style={{ display: "flex" }}>
+                        <Link
+                          className="btn btn-primary"
+                          to={"/ver-guia/" + guia.pescador.id}
+                          style={{ width: 120, height: 50 }}
+                        >
+                          <FaEye style={{ marginRight: 5 }} /> Ver Guia
+                        </Link>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>              
+          </TableWrapper>        
           <div
             style={{
               width: "100%",

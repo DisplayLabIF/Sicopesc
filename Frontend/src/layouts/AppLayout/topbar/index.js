@@ -1,17 +1,16 @@
 import React, { useState } from "react";
-import { FaUser, FaBars, FaDoorOpen, FaAngleLeft } from "react-icons/fa";
+import { FaUser, FaBars, FaDoorOpen } from "react-icons/fa";
 //import { useDispatch } from "react-redux";
-import { Redirect, useLocation } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { Container } from "./styles";
 import { useAppLayout } from "../../../contexts/AppLayoutContext";
 import api from "../../../services/api";
 
-export default function Topbar({ title = "", history, back = true }) {
+export default function Topbar({ title = "" }) {
   //const dispatch = useDispatch();
   const [toLogin, setToLogin] = useState(false);
   const userName = localStorage.getItem("user_name");
   const layoutContext = useAppLayout();
-  const location = useLocation();
 
   /*function toggleSidebar(e) {
     e.preventDefault();
@@ -50,30 +49,10 @@ export default function Topbar({ title = "", history, back = true }) {
   return (
     <Container className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid">
-        {back ? (
-          <span
-            className="navbar-brand"
-            onClick={
-              location.pathname === "/inicio"
-                ? onMenuClick
-                : () => history.goBack()
-            }
-          >
-            {location.pathname === "/inicio" ? (
-              <FaBars />
-            ) : (
-              <>
-                {" "}
-                <FaAngleLeft size={30} style={{ marginRight: 5 }} /> Voltar{" "}
-              </>
-            )}
-          </span>
-        ) : (
-          <span></span>
-        )}
-
-        <h1 className="nav-center">{title}</h1>
-
+        <span className="navbar-brand" onClick={onMenuClick}>
+          <FaBars />
+        </span>
+        
         <div className="dropdown">
           <div
             className="user dropdown-toggle"
