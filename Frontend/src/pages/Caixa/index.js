@@ -117,7 +117,11 @@ function Caixa(props) {
                       {recibo.tipo}
                     </span>
                   </td>
-                  <td>{recibo.nome}</td>
+                  {/* Mostra nome completo no Desktop e Mostra apenas primeiro nome no Mobile */}
+                  <td>
+                    <span className="first-name">{recibo.nome.split(" ")[0]}</span>
+                    <span className="complete-name">{recibo.nome}</span>
+                  </td>
                   <td>{recibo.descricao}</td>
                   <td>
                     {(recibo.tipo.toUpperCase() === "COMPRA" ? "-" : "") +
@@ -125,19 +129,17 @@ function Caixa(props) {
                   </td>
                   <td style={{ display: "flex" }}>
                     <Link
-                      className="btn btn-primary"
+                      className="btn btn-primary btn-action"
                       to={"/recibo/" + recibo.id}
-                      style={{ width: 60, height: 50, marginLeft: 10 }}
                     >
                       <FaEye />
                     </Link>
                     <button
-                      className="btn btn-danger"
+                      className="btn btn-danger btn-action"
                       onClick={() => {
                         setReciboId(recibo.id);
                         setShowModalExcluir(true);
                       }}
-                      style={{ width: 60, height: 50, marginLeft: 10 }}
                     >
                       <FaTrash />
                     </button>

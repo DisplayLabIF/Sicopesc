@@ -30,6 +30,7 @@ import ConfigRoute from "./ConfigRoute";
 import Documentos from "../pages/Documentos";
 import Seguro from "../pages/Documentos/Seguro";
 import ShowSeguro from "../pages/Documentos/Seguro/ShowSeguro";
+import newInsurance from "../pages/Documentos/Seguro/NovoSeguro";
 
 const Routes = () => (
   <Switch>
@@ -200,11 +201,16 @@ const Routes = () => (
 
     <PrivateRoute
       exact
-      path="/documentos/seguro/exibir-seguro"
+      path="/documentos/seguro/gerar-seguro/:id"
+      title="Gerar Requerimento Seguro Defeso"
+      component={newInsurance}
+    />
+    <PrivateRoute
+      exact
+      path="/documentos/seguro/exibir-seguro/:id"
       title="Exibir Requerimento Seguro Defeso"
       component={ShowSeguro}
     />
-
     <Route
       exact
       path="/login"

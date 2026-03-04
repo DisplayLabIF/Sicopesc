@@ -19,6 +19,7 @@ export const Container = styled.div`
     position: absolute;
     font-size: 2.2em;
   }
+
   @media (max-width: 768px) {
     .title-center {
       text-align: center;
@@ -28,8 +29,29 @@ export const Container = styled.div`
       margin-bottom: 40px;
     }
     .table {
-      width: 600px;
+      font-size: 12px;
       min-width: 100%;  
+    }
+    .rest-name {
+      display: none;
+    }
+    th:nth-child(1),
+    td:nth-child(1),
+    th:nth-child(3),
+    td:nth-child(3),
+    th:nth-child(5),
+    td:nth-child(5) {
+      display: none;  
+    }
+    .text-desk {
+      display: none;
+    }
+    .btn-text {
+      display: none;
+    }
+    .btn-action {
+      width: 40px;
+      height: 30px;
     }
   }
 `;

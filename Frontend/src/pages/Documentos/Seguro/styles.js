@@ -33,6 +33,21 @@ export const Container = styled.div`
   .table-rounded {
     border-radius: 5px;
   }
+  
+  @media (max-width: 768px) {
+    th:nth-child(1),
+    td:nth-child(1) {
+      display: none;
+    }
+    .last-name {
+      display: none;
+    }
+      
+    .btn-action {
+      width: 40px;
+      height: 30px;
+    }
+  }
 `;
 
 export const PaginationInfo = styled.div`

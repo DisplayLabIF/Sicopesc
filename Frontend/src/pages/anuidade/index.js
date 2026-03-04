@@ -393,7 +393,10 @@ function Anuidade(props) {
                   <th>RGP/CPF</th>
                   <th>Nome</th>
                   <th>Data de emissão</th>
-                  <th>Ano de referência</th>
+                  <th>
+                    <span className="text-desk">Ano de referência</span>
+                    <span className="text-mobile">Ano</span>
+                  </th>
                   <th>Valor</th>
                   <th>Ações</th>
                 </tr>
@@ -403,16 +406,23 @@ function Anuidade(props) {
                 {guias.map((guia) => (
                   <tr key={guia.id}>
                     <td>{guia.pescador.rgp}</td>
-                    <td>{guia.pescador.nome}</td>
+                    <td className="col-nome">
+                      <span className="first-name">
+                        {guia.pescador.nome?.split(" ")[0]}
+                      </span>
+                      <span className="rest-name">
+                        {" " + guia.pescador.nome?.split(" ").slice(1).join(" ")}
+                      </span>
+                    </td>
                     <td>{dateFormat(guia.data_emissao)}</td>
                     <td>{guia.ano}</td>
                     <td>{guia.valor}</td>
-                    <td className="table-btn-actions" style={{ minWidth: 300 }}>
-                      <Link className="btn btn-primary" to={"/ver-guia/" + guia.id}>
+                    <td className="table-btn-actions">
+                      <Link className="btn btn-primary btn-action" to={"/ver-guia/" + guia.id}>
                         <FaEye />
                       </Link>
                       <button
-                        className="btn btn-danger modal-trigger"
+                        className="btn btn-danger modal-trigger btn-action"
                         href="#modalExcluir"
                         onClick={() => {
                           setShowModalExcluir(true);
@@ -424,11 +434,12 @@ function Anuidade(props) {
                         <FaTrash />
                       </button>
                       <button
-                        className="btn btn-warning"
+                        className="btn btn-warning btn-action"
                         onClick={() => handlePayNextYear(guia.pescador.id)}
                         title="Gera a próxima guia de pagamento do pescador."
                       >
-                        <FaMoneyBill style={{ marginRight: 5 }} /> Pagar próximo ano
+                        <FaMoneyBill style={{ marginRight: 5 }} /> 
+                        <span className="btn-text">Pagar próximo ano</span>
                       </button>
                     </td>
                   </tr>

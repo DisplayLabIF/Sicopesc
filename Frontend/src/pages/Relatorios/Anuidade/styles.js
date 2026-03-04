@@ -39,7 +39,7 @@ export const ReportStatus = styled.div`
     padding: 12px 16px;
     min-height: unset;
     max-width: unset;
-
+ 
     label {
       font-size: 16px;
       margin-bottom: 0;
@@ -92,12 +92,28 @@ export const TableWrapper = styled.div`
   table {
     width: 100%;
   }
+  .btn-action {
+    width: 120px;
+    height: 50px;
+  }
 
   @media (max-width: 768px) {
     th:nth-child(1),
     td:nth-child(1),
     th:nth-child(3),
     td:nth-child(3) {
+      display: none;
+    }
+
+    /* Mostra só primeiro nome */
+    .col-nome .rest-name {
+      display: none;
+    }
+    .btn-action {
+      width: 80px;
+      height: 40px;
+    }
+    .btn-text {
       display: none;
     }
   }

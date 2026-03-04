@@ -13,22 +13,13 @@ export default function Sidebar() {
   const [hideAnimation, setHideAnimation] = useState(false);
   const [userRole, setUserRole] = useState(localStorage.getItem("USER_ROLE"));
 
-  function hideSidebar() {
-    setHideAnimation(true);
+  function hideSidebar(e) {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
     appContext.toggleShowSidebar();
   }
-
-  const registerAnimationEndEvent = useCallback(() => {
-    let sidebar = document.querySelector(".sidebar");
-    sidebar.addEventListener("animationend", (event) => {
-      setHideAnimation(false);
-      if (event.animationName === "kSYWhj") {
-        appContext.toggleShowSidebar();
-      }
-    });
-  }, [appContext]);
-
-  useEffect(registerAnimationEndEvent, []);
 
   useEffect(() => {
     if (!userRole) {

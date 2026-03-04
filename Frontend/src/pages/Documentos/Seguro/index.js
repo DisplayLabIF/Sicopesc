@@ -7,8 +7,9 @@ import { FaSearch, FaAngleRight, FaAngleLeft, FaForward, FaBackward } from "reac
 import Pagination from "react-js-pagination";
 import queryString from "query-string";
 import { IoDocumentText } from "react-icons/io5";
-
+import { dateFormat } from "../../../Utils";
 import api from "../../../services/api";
+
 
 function Seguro(props) {
   const [page, setPage] = useState(1);
@@ -114,14 +115,17 @@ function Seguro(props) {
               {pescadores.map((pescador) => (
                 <tr key={pescador.id}>
                   <td>{pescador.rgp}</td>
-                  <td>{pescador.nome}</td>
-                  <td>{pescador.nascimento}</td>
+                  <td>
+                    <span className="first-name">{pescador.nome.split(" ")[0]}</span>
+                    <span className="last-name">{pescador.nome.split(" ")[1]}</span>
+                  </td>
+                  <td>{dateFormat(pescador.nascimento)}</td>
                   <td>
                     <DocButton
-                      className="btn btn-warning"
+                      className="btn btn-warning btn-action"
                       type="button"
                       title="Documento do Seguro"
-                      onClick={() => props.history.push("/seguro/exibir-seguro")}
+                      onClick={() => props.history.push(`/documentos/seguro/exibir-seguro/${pescador.id}`)}
                     >
                       <IoDocumentText />
                     </DocButton>

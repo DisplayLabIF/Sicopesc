@@ -1,11 +1,12 @@
 import React from "react";
-import { Container, Wrapper } from "../main/styles";
+import { Container, Wrapper } from "./styles";
 import { ButtonAction } from "../main/styles";
 
 export default function Documentos(props) {
   return (
     <Container>
       <Wrapper>
+        <h1 className="text-center">O que deseja fazer?</h1>
         <div className="row">
           <div className="col-md-3 col-sm-12 d-flex justify-content-center mb-3">
             <ButtonAction

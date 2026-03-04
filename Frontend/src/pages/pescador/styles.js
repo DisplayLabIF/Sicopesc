@@ -11,6 +11,11 @@ export const Container = styled.div`
     animation-delay: 200ms;
     animation-fill-mode: backwards;
   }
+  .btn-action{
+    width: 60px;
+    height: 50px;
+    margin-left: 10px;
+  }
   .table {
     animation: ${ScaleMacAnimation} 400ms;
     animation-delay: 500ms;
@@ -25,12 +30,29 @@ export const Container = styled.div`
     border-radius: 5px;
   }
   @media (max-width: 768px) {
+    font-size: 12px;
+
     .title-center {
       text-align: center;
       position: static;
       transform: none;
       font-size: 24px;
       margin-bottom: 40px;
+    }
+
+    th:nth-child(1),
+    td:nth-child(1) {
+      display: none;
+    }
+    
+    .btn {
+      width: 40px;
+      height: 30px;
+      margin-left: 8px;
+    }
+    /* Exibir apenas primeiro nome */
+    .col-nome .rest-name {
+      display: none;
     }
   }
 `;

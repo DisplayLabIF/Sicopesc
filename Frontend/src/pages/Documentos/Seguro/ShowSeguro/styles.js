@@ -185,6 +185,15 @@ export const Container = styled.div`
 
   /* =========== ESTILOS DE IMPRESSÃO ======== */
   @media print {
+    @page {
+        size: A4;
+        margin: 1cm; /* Ajuste conforme necessário para não cortar */
+      }
+      
+      body {
+        margin: 0;
+        -webkit-print-color-adjust: exact;
+      }
     width: 100% !important;
     min-height: 100vh !important;
     margin: 0 !important;
@@ -233,6 +242,21 @@ export const Container = styled.div`
       }
     }
     
-    
+  }
+`
+export const ContainerButton = styled.div`
+  display: flex;
+  
+  button {
+    height: 50px;
+    padding: 6px 12px;
+    font-size: 16px;
+    margin: 20px auto;
+    display: block;
+    cursor: pointer;
+    background-color: #0892c9;
+    color: #FFFFFF;
+    border-radius: 8px;
+    border: none;
   }
 `

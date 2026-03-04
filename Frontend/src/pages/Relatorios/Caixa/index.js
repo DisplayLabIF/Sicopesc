@@ -260,7 +260,14 @@ function RelatorioAnuidade(props) {
                   {report?.recibos?.map((recibo) => (
                     <tr key={recibo.id}>
                       <td>{recibo.cpf}</td>
-                      <td>{recibo.nome}</td>
+                      <td className="col-nome">
+                        <span className="first-name">
+                          {recibo.nome?.split(" ")[0]}
+                        </span>
+                        <span className="rest-name">
+                          {" " + recibo.nome?.split(" ").slice(1).join(" ")}
+                        </span>
+                      </td>
                       <td
                         style={{
                           color:
@@ -275,11 +282,11 @@ function RelatorioAnuidade(props) {
                       <td>{new Date(recibo.createdAt).toLocaleDateString()}</td>
                       <td style={{ display: "flex" }}>
                         <Link
-                          className="btn btn-primary"
+                          className="btn btn-primary btn-action"
                           to={"/recibo/" + recibo.id}
-                          style={{ width: 120, height: 50 }}
                         >
-                          <FaEye style={{ marginRight: 5 }} /> Ver Recibo
+                          <FaEye style={{ marginRight: 5 }} />{" "}
+                          <span className="btn-text">Ver Recibo</span>
                         </Link>
                       </td>
                     </tr>

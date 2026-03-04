@@ -16,5 +16,23 @@ export const Container = styled.div`
       font-size: 24px;
       margin-bottom: 40px;
     }
-}
+      /* Esconde email no mobile */
+      .col-email {
+        display: none;
+      }
+
+      /* Mostra só primeiro nome */
+      .rest-name {
+        display: none;
+      }
+
+      table {
+        font-size: 14px;
+      }
+
+      .col-acoes {
+        gap: 5px;
+      }
+    }
+  }
 `;

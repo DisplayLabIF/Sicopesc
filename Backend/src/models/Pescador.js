@@ -34,6 +34,10 @@ class Pescador extends Model {
       foreignKey: "entidade_id",
       as: "entidade",
     });
+    this.hasMany(models.Seguro, {
+      foreignKey: "pescador_id",
+      as: "seguros",
+    });
   }
   static async getLastBirthdays(entidade_id) {
     let pescadores = null;

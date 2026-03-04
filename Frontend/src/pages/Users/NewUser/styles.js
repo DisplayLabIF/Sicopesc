@@ -25,4 +25,13 @@ export const Form = styled.form`
       margin-bottom: 10px;
     }
   }
+  @media (max-width: 768px) {
+    width: 100%;
+    .button-submit {
+      justify-content: center;
+      button {
+        margin-right: 0;
+      }
+    }
+  }
 `;

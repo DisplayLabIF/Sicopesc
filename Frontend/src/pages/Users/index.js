@@ -62,28 +62,48 @@ function Users(props) {
       ) : (
         <div className="table-responsive mt-4">
           <table className="table">
-              <thead>
+            <thead>
               <tr>
-                <th>Nome</th>
-                <th>E-mail</th>
-                <th>Tipo</th>
-                <th>Ações</th>
+                <th className="col-nome">Nome</th>
+                <th className="col-email">E-mail</th>
+                <th className="col-tipo">Tipo</th>
+                <th className="col-acoes">Ações</th>
               </tr>
             </thead>
+
             <tbody>
               {users.map((user) => (
                 <tr key={user.id}>
-                  <td>{user.nome}</td>
-                  <td>{user.email}</td>
-                  <td>{user.role}</td>
-                  <td style={{ display: "flex" }}>
+                  {/* Nome */}
+                  <td className="col-nome">
+                    <span className="first-name">
+                      {user.nome?.split(" ")[0]}
+                    </span>
+                    <span className="rest-name">
+                      {" " + user.nome?.split(" ").slice(1).join(" ")}
+                    </span>
+                  </td>
+
+                  {/* Email */}
+                  <td className="col-email">
+                    {user.email}
+                  </td>
+
+                  {/* Tipo */}
+                  <td className="col-tipo">
+                    {user.role}
+                  </td>
+
+                  {/* Ações */}
+                  <td className="col-acoes" style={{ display: "flex" }}>
                     <Link
-                      className="btn btn-warning"
+                      className="btn btn-warning btn-action"
                       to={`/editar-usuario/${user.id}`}
-                      style={{ width: 60, height: 50, marginLeft: 10 }}
+                      style={{ width: 40, height: 30, marginLeft: 10 }}
                     >
                       <FaEdit />
                     </Link>
+
                     {user.role !== "ADMIN" && (
                       <button
                         className="btn btn-danger"
@@ -91,7 +111,7 @@ function Users(props) {
                           setUserId(user.id);
                           setShowModalExcluir(true);
                         }}
-                        style={{ width: 60, height: 50, marginLeft: 10 }}
+                        style={{ width: 40, height: 30, marginLeft: 10 }}
                       >
                         <FaTrash />
                       </button>
@@ -100,7 +120,6 @@ function Users(props) {
                 </tr>
               ))}
             </tbody>
-            {loading ? <HashLoader size={30} /> : ""}
           </table>
         </div>
       )}

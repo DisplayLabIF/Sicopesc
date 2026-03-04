@@ -2,6 +2,30 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   width: 100%;
+
+  .btn-action {
+    width: 60px;
+    height: 50px;
+    margin-left: 8px;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 12px;
+
+    th:nth-child(3),
+    td:nth-child(3),
+    th:nth-child(4),
+    td:nth-child(4){
+      display: none;
+    }
+    
+    .btn-action {
+      width: 50px;
+      height: 30px;
+    }
+    .complete-name {
+      display: none;
+    }
 `;
 
 export const Header = styled.header`
@@ -24,4 +48,12 @@ export const ButtonHeader = styled.button`
   border: none;
   color: white;
   text-transform: uppercase;
+  
+  @media (max-width: 768px) {
+    width: 160px !important;
+    justify-content: space-between;
+    font-size: 12px;
+    height: 50px !important;
+  }
+
 `;

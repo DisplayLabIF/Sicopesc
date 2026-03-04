@@ -252,16 +252,24 @@ function RelatorioAnuidade(props) {
                   {report?.guias?.map((guia) => (
                     <tr key={guia.id}>
                       <td>{guia.pescador.rgp}</td>
-                      <td>{guia.pescador.nome}</td>
+                      {/* Mostra nome completo no Desktop e Mostra apenas primeiro nome no Mobile */}
+                      <td className="col-nome">
+                        <span className="first-name">
+                          {guia.pescador.nome?.split(" ")[0]}
+                        </span>
+                        <span className="rest-name">
+                          {" " + guia.pescador.nome?.split(" ").slice(1).join(" ")}
+                        </span>
+                      </td>
                       <td>{formatter.format(guia.valor)}</td>
                       <td>{new Date(guia.data_emissao).toLocaleDateString()}</td>
                       <td style={{ display: "flex" }}>
                         <Link
-                          className="btn btn-primary"
+                          className="btn btn-primary btn-action"
                           to={"/ver-guia/" + guia.pescador.id}
-                          style={{ width: 120, height: 50 }}
                         >
-                          <FaEye style={{ marginRight: 5 }} /> Ver Guia
+                          <FaEye style={{ marginRight: 5 }} /> 
+                          <span className="btn-text">Ver Guia</span>
                         </Link>
                       </td>
                     </tr>

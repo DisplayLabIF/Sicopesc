@@ -164,30 +164,34 @@ export default function Pescador(props) {
             {pescadores.map((pescador) => (
               <tr key={pescador.id}>
                 <td>{pescador.rgp}</td>
-                <td>{pescador.nome}</td>
+                <td className="col-nome">
+                  <span className="first-name">
+                    {pescador.nome?.split(" ")[0]}
+                  </span>
+                  <span className="rest-name">
+                    {" " + pescador.nome?.split(" ").slice(1).join(" ")}
+                  </span>
+                </td>
                 <td>{dateFormat(pescador.nascimento)}</td>
                 <td style={{ display: "flex" }}>
                   <Link
-                    className="btn btn-primary"
+                    className="btn btn-primary btn-action"
                     to={"/ver-pescador/" + pescador.id}
-                    style={{ width: 60, height: 50, marginLeft: 10 }}
                   >
                     <FaEye />
                   </Link>
                   <Link
-                    className="btn btn-warning"
+                    className="btn btn-warning btn-action"
                     to={`/editar-pescador/${pescador.id}`}
-                    style={{ width: 60, height: 50, marginLeft: 10 }}
                   >
                     <FaEdit />
                   </Link>
                   <button
-                    className="btn btn-danger"
+                    className="btn btn-danger btn-action"
                     onClick={() => {
                       setIdPescador(pescador.id);
                       setShowModalExcluir(true);
                     }}
-                    style={{ width: 60, height: 50, marginLeft: 10 }}
                   >
                     <FaTrash />
                   </button>

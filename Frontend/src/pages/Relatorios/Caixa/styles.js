@@ -92,12 +92,25 @@ export const TableWrapper = styled.div`
   table {
     width: 100%;
   }
-
+  .btn-action {
+    width: 120px;
+    height: 50px;
+  }
   @media (max-width: 768px) {
     th:nth-child(1),
     td:nth-child(1),
     th:nth-child(3),
     td:nth-child(3) {
+      display: none;
+    }
+    .col-nome .rest-name {
+      display: none;
+    }
+    .btn-action {
+      width: 80px;
+      height: 40px;
+    }
+    .btn-text {
       display: none;
     }
   }
