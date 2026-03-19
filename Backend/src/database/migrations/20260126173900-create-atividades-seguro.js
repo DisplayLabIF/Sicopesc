@@ -34,8 +34,8 @@ module.exports = {
       situacao: {
         type: Sequelize.ENUM('INDIVIDUAL', 'ECONOMIA_FAMILIAR')
       },
+      condicao_grupo_familiar: Sequelize.ENUM('TITULAR', 'COMPONENTE'),
       observacoes: Sequelize.TEXT,
-      
       created_at: {
         type: Sequelize.DATE,
         allowNull: true,

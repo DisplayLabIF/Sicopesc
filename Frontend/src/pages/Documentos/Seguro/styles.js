@@ -33,19 +33,24 @@ export const Container = styled.div`
   .table-rounded {
     border-radius: 5px;
   }
+  .btn-action {
+    margin-right: 8px;
+  }
   
   @media (max-width: 768px) {
+    font-size: 12px;
     th:nth-child(1),
     td:nth-child(1) {
       display: none;
     }
-    .last-name {
+    .rest-name {
       display: none;
     }
-      
+    
     .btn-action {
       width: 40px;
       height: 30px;
+      margin-left: 8px;
     }
   }
 `;

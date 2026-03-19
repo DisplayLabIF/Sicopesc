@@ -11,18 +11,40 @@ class SeguroController {
         const routes = express.Router();
         routes.use(authMiddleware);
 
+        
         routes.post("/", this.store.bind(this));
         routes.get("/", this.index.bind(this));
-        routes.get("/:id", this.show.bind(this)); // Agora o método show existe abaixo
+        routes.get("/:id", this.show.bind(this));
+        routes.delete("/:id", this.destroy.bind(this));
+
+        // Rotas para busca
+        routes.get("/nome/:nome", this.findByNome.bind(this));
+        routes.get("/cpf/:cpf", this.findByCPF.bind(this));
+        routes.get("/rgp/:rgp", this.findByRGP.bind(this));
 
         return routes;
     }
 
     async index(req, res) {
         try {
-            const seguros = await Seguro.findAll({ include: [{ association: 'pescador' }] });
-            return res.json(seguros);
+            const { page = 1 } = req.query;
+            const limit = 20;
+
+            const { count, rows } = await Seguro.findAndCountAll({
+                limit,
+                offset: (page - 1) * limit,
+                include: [{ association: 'pescador' }],
+                order: [['created_at', 'DESC']]
+            });
+
+            return res.json({
+                seguros: rows,
+                itemCount: count,
+                pageCount: Math.ceil(count / limit),
+                currentPage: parseInt(page)
+            });
         } catch (error) {
+            console.error("Erro no index de seguros:", error);
             return res.status(500).json({ error: error.message });
         }
     }
@@ -31,7 +53,7 @@ class SeguroController {
         try {
             const { id } = req.params;
             const seguro = await Seguro.findByPk(id, {
-                include: ['atividades', 'embarcacoes', 'pescador']
+                include: ['atividades', 'embarcacoes', 'pescador', 'familiares', 'rendas']
             });
 
             if (!seguro) return res.status(404).json({ error: "Seguro não encontrado" });
@@ -81,6 +103,85 @@ class SeguroController {
             }
 
             console.error("ERRO DESCONHECIDO:", error);
+            return res.status(500).json({ error: error.message });
+        }
+    }
+    
+    async destroy(req, res) {
+        try {
+            const { id } = req.params;
+
+            const seguro = await Seguro.findByPk(id);
+
+            if (!seguro) {
+                return res.status(404).json({ error: "Seguro não encontrado" });
+            }
+
+            await seguro.destroy();
+
+            return res.json({ message: "Seguro deletado com sucesso" });
+        } catch (error) {
+            console.error("Erro ao deletar seguro:", error);
+            return res.status(500).json({ error: error.message });
+        }
+    }
+
+    async findByNome(req, res) {
+        try {
+            const { nome } = req.params;
+            const { page = 1 } = req.query;
+            const limit = 20;
+            const { Op } = require("sequelize");
+
+            const { count, rows } = await Seguro.findAndCountAll({
+                limit,
+                offset: (page - 1) * limit,
+                include: [{
+                    association: 'pescador',
+                    where: {
+                        nome: { [Op.like]: `%${nome}%` }
+                    }
+                }],
+                order: [['created_at', 'DESC']]
+            });
+
+            return res.json({
+                seguros: rows,
+                itemCount: count,
+                pageCount: Math.ceil(count / limit),
+                currentPage: parseInt(page)
+            });
+        } catch (error) {
+            return res.status(500).json({ error: error.message });
+        }
+    }
+
+    async findByCPF(req, res) {
+        try {
+            const { cpf } = req.params;
+            const { count, rows } = await Seguro.findAndCountAll({
+                include: [{
+                    association: 'pescador',
+                    where: { cpf }
+                }]
+            });
+            return res.json({ seguros: rows, itemCount: count });
+        } catch (error) {
+            return res.status(500).json({ error: error.message });
+        }
+    }
+
+    async findByRGP(req, res) {
+        try {
+            const { rgp } = req.params;
+            const { count, rows } = await Seguro.findAndCountAll({
+                include: [{
+                    association: 'pescador',
+                    where: { rgp }
+                }]
+            });
+            return res.json({ seguros: rows, itemCount: count });
+        } catch (error) {
             return res.status(500).json({ error: error.message });
         }
     }

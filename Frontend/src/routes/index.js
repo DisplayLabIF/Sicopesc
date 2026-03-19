@@ -30,7 +30,8 @@ import ConfigRoute from "./ConfigRoute";
 import Documentos from "../pages/Documentos";
 import Seguro from "../pages/Documentos/Seguro";
 import ShowSeguro from "../pages/Documentos/Seguro/ShowSeguro";
-import newInsurance from "../pages/Documentos/Seguro/NovoSeguro";
+import newInsurance from "../pages/Documentos/Seguro/NovoSeguro/Form";
+import pageInsurance from "../pages/Documentos/Seguro/NovoSeguro"
 
 const Routes = () => (
   <Switch>
@@ -195,14 +196,20 @@ const Routes = () => (
     <PrivateRoute
       exact
       path="/documentos/seguro"
-      title="Requerimento Seguro Defeso"
+      title="Seguro Defeso"
       component={Seguro}
     />
 
     <PrivateRoute
       exact
-      path="/documentos/seguro/gerar-seguro/:id"
+      path="/documentos/seguro/gerar-seguro"
       title="Gerar Requerimento Seguro Defeso"
+      component={pageInsurance}
+    />
+    <PrivateRoute
+      exact
+      path="/documentos/seguro/gerar-seguro/:id"
+      title="Formulario para gerar Requerimento Seguro Defeso"
       component={newInsurance}
     />
     <PrivateRoute

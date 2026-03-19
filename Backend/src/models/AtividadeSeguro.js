@@ -17,6 +17,7 @@ class AtividadeSeguro extends Model {
                     "REPRESA"
                 ),
                 situacao: DataTypes.ENUM("INDIVIDUAL", "ECONOMIA_FAMILIAR"),
+                condicao_grupo_familiar: DataTypes.ENUM("TITULAR", "COMPONENTE"),
                 observacoes: DataTypes.TEXT,
                 
             },

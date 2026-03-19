@@ -1,19 +1,20 @@
 import React, { useCallback, useEffect, useState } from "react";
+import { Container, DocButton } from "./styles";
 import { 
-    Container,
-    DocButton,
-} from "./styles";
-import { FaSearch, FaAngleRight, FaAngleLeft, FaForward, FaBackward } from "react-icons/fa";
+    FaSearch, FaAngleRight, FaAngleLeft, 
+    FaForward, FaBackward, FaTrash, FaEye, 
+    FaPlusSquare
+} from "react-icons/fa";
 import Pagination from "react-js-pagination";
 import queryString from "query-string";
-import { IoDocumentText } from "react-icons/io5";
 import { dateFormat } from "../../../Utils";
 import api from "../../../services/api";
-
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 function Seguro(props) {
+  const {title  = ""} = props;
   const [page, setPage] = useState(1);
-  const [pescadores, setPescadores] = useState([]);
+  const [seguros, setSeguros] = useState([]);
   const [pagination, setPagination] = useState({
     itemCount: 0,
     pageCount: 0,
@@ -24,43 +25,46 @@ function Seguro(props) {
   const [nomePescador, setNomePescador] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const getPescadores = useCallback(async (pageNumber) => {
+  // Busca a lista de seguros (aceita filtro de busca por nome do pescador no seguro)
+  const getSeguros = useCallback(async (page) => {
     try {
       setLoading(true);
-      const response = await api.get(`/pescadores?page=${pageNumber}`);
-      setPescadores(response.data.pescadores);
+      const response = await api.get(`/seguros?page=${page}`);
+      setSeguros(response.data.seguros);
       setPagination({
         itemCount: response.data.itemCount,
         pageCount: response.data.pageCount,
         pages: response.data.pages,
-        currentPage: response.data.currentPage,
-      });
-      setLoading(false);
+        currentPage: response.data.currentPage
+      })
+      setLoading(false)
     } catch (e) {
-      setLoading(false);
+      console.error("Erro ao carregar seguros:", e);
     }
   }, []);
+
 
   useEffect(() => {
     const values = queryString.parse(props.location.search);
     let p = values.page;
-    const s = values.search;
+    const search = values.search;
     if (p) {
       setPage(parseInt(p));
     }
-    setSearch(s);
+    setSearch(search);
   }, [props.location.search]);
 
   useEffect(() => {
-    if (!search) getPescadores(page);
-  }, [page, getPescadores, search]);
+    if (!search) getSeguros(page);
+  }, [page, getSeguros, search]);
 
   useEffect(() => {
-    async function getPescadorByName() {
+    async function getSeguroByName() {
       setLoading(true);
-      const encoded = encodeURIComponent(search);
-      const data = (await api.get(`/pescadores/nome/${encoded}?page=${page}`)).data;
-      setPescadores(data.pescadores);
+
+      const data = (await api.get(`/seguros/nome/${search}?page=${page}`)).data;
+      
+      setSeguros(data.seguros);
       setPagination({
         itemCount: data.itemCount,
         pageCount: data.pageCount,
@@ -70,22 +74,35 @@ function Seguro(props) {
       setLoading(false);
     }
     if (search) {
-      getPescadorByName();
+      getSeguroByName();
     }
   }, [search, page]);
 
-  async function onSubmitBuscar(e) {
+  async function getSegurosByNome(e) {
     e.preventDefault();
     setPage(1);
-    if (nomePescador === "") return props.history.push(`/seguro`);
-    return props.history.push(`/seguro?search=${encodeURIComponent(nomePescador)}`);
+    if (nomePescador === "") return props.history.push(`/documentos/seguro/`);
+    return props.history.push(`/documentos/seguro?search=${nomePescador}`);
   }
-  
+
+  async function handleDeleteSeguro(id) {
+    if (window.confirm("Deseja realmente excluir este registro de seguro?")) {
+      try {
+        await api.delete(`/seguros/${id}`);
+        alert("Seguro excluído com sucesso!");
+        getSeguros(page, search);
+      } catch (e) {
+        alert("Erro ao excluir seguro.");
+      }
+    }
+  }
 
   return (
     <Container>
       <div className="container" style={{ width: "100%" }}>
-        <form onSubmit={onSubmitBuscar}>
+        {/* BUSCA NOS SEGUROS JÁ EMITIDOS */}
+        <h1 className="title-center">{title}</h1>
+        <form onSubmit={getSegurosByNome}>
           <div className="mb-4 input-group">
             <label className="input-group-text" id="basic-addon1">
               <FaSearch />
@@ -100,69 +117,87 @@ function Seguro(props) {
             />
           </div>
         </form>
+        <Link
+          className="btn btn-primary mb-2"
+          style={{ width: 176 }}
+          to="/documentos/seguro/gerar-seguro"
+        >
+          <FaPlusSquare /> Novo Seguro
+        </Link>
 
         <div className="table-responsive">
-          <table className="table">
+          <table className="table table-hover">
             <thead>
-              <tr>
-                <th>RGP</th>
-                <th>Nome</th>
-                <th>Nascimento</th>
-                <th>Seguro</th>
-              </tr>
+                <tr className="table-light">
+                  <th>Data Emissão</th>
+                  <th>Pescador</th>
+                  <th>CPF</th>
+                  <th className="text-center">Ações</th>
+                </tr>
             </thead>
             <tbody>
-              {pescadores.map((pescador) => (
-                <tr key={pescador.id}>
-                  <td>{pescador.rgp}</td>
-                  <td>
-                    <span className="first-name">{pescador.nome.split(" ")[0]}</span>
-                    <span className="last-name">{pescador.nome.split(" ")[1]}</span>
-                  </td>
-                  <td>{dateFormat(pescador.nascimento)}</td>
-                  <td>
-                    <DocButton
-                      className="btn btn-warning btn-action"
-                      type="button"
-                      title="Documento do Seguro"
-                      onClick={() => props.history.push(`/documentos/seguro/exibir-seguro/${pescador.id}`)}
-                    >
-                      <IoDocumentText />
-                    </DocButton>
-                  </td>
-                </tr>
-              ))}
+              {loading ? (
+                <tr><td colSpan="4" className="text-center">Carregando...</td></tr>
+              ) : seguros.length > 0 ? (
+                seguros.map((s) => (
+                    <tr key={s.id}>
+                      <td>{dateFormat(s.data_declaracao)}</td>
+                      <td>
+                        <span className="first-name">
+                          {s.pescador.nome?.split(" ") [0]}
+                        </span>
+                        <span className="rest-name">
+                          {" " + s.pescador.nome?.split(" ").slice(1).join(" ")}
+                        </span>
+                      </td>
+                      <td>{s.pescador?.cpf}</td>
+                      <td className="text-center">
+                        <div className="d-flex justify-content-center align-items-center">
+                          <DocButton
+                            className="btn btn-primary btn-action"
+                            title="Visualizar/Imprimir"
+                            onClick={() => props.history.push(`/documentos/seguro/exibir-seguro/${s.id}`)}
+                          >
+                            <FaEye />
+                          </DocButton>
+  
+                          <button
+                            className="btn btn-danger btn-action"
+                            title="Excluir Registro"
+                            onClick={() => handleDeleteSeguro(s.id)}
+                          >
+                            <FaTrash />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))
+              ) : (
+                <tr><td colSpan="4" className="text-center">Nenhum seguro localizado.</td></tr>
+              )}
             </tbody>
           </table>
         </div>
 
-        <div
-          style={{
-            width: "100%",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            marginTop: 20,
-          }}
-        >
+        {/* PAGINAÇÃO */}
+        <div className="d-flex justify-content-center mt-4">
           <Pagination
-            activePage={parseInt(pagination.currentPage)}
-            pageCount={parseInt(pagination.pageCount)}
+            activePage={page}
+            itemsCountPerPage={20}
             totalItemsCount={parseInt(pagination.itemCount)}
-            onChange={(p) => {
-              if (search)
-                return props.history.push(
-                  `/seguro?page=${p}&search=${encodeURIComponent(search)}`
-                );
-              props.history.push(`/seguro?page=${p}`);
-            }}
-            marginPagesDisplayed={2}
             pageRangeDisplayed={5}
-            activeClass="active"
+            onChange={(p) => {
+              const url = search 
+                ? `/seguro?page=${p}&search=${encodeURIComponent(search)}`
+                : `/seguro?page=${p}`;
+              props.history.push(url);
+            }}
+            itemClass="page-item"
+            linkClass="page-link"
             nextPageText={<FaAngleRight />}
             prevPageText={<FaAngleLeft />}
-            lastPageText={<FaForward />}
             firstPageText={<FaBackward />}
+            lastPageText={<FaForward />}
           />
         </div>
       </div>

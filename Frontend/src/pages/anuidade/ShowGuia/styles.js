@@ -49,11 +49,12 @@ export const Container = styled.div`
   td {
     padding: 12px 0;
   }
-  button.btn-guia {
-    position: fixed;
-    right: 20%;
-    bottom: 50px;
-  }
+button.btn-guia {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 50px auto;
+}
   button.btn-guia:hover {
     background: #27c49f;
     border-color: #27c49f;
